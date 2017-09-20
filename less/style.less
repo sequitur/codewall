@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
+body,html {
+  font-family: 'VT323', monospace;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+
+#content {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+#style-menu {
+  width: 300px;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.colorglow(@value) {
+  color: @value;
+  text-shadow: 0 0 10px lighten(@value, 10%);
+}
+
+.mildglow(@value) {
+  color: @value;
+  text-shadow: 0 0 5px lighten(@value, 10%);
+}
+
+#content.venturis {
+  .mildglow(#bbb);
+  background: rgb(23, 51, 60);
+  .hljs-keyword,.hljs-built_in { .colorglow(rgb(100, 183, 214)); }
+  .hljs-literal,.hljs-number,.hljs-params { .colorglow(rgb(130, 232, 214)); }
+  .hljs-symbol,.hljs-function,.hljs-title { .colorglow(rgb(171, 86, 230)); }
+  .hljs-string,.hljs-meta { .colorglow(rgb(107, 83, 207)); }
+  .hljs-comment { .colorglow(rgb(159, 178, 179)); }
+}
+
+#content.weyland-yutani {
+  .mildglow(#ccc);
+  background: rgb(82, 81, 68);
+  .hljs-keyword,.hljs-built_in { .colorglow(rgb(241, 205, 17)); }
+  .hljs-literal,.hljs-number,.hljs-params { .colorglow(rgb(137, 142, 166)); }
+  .hljs-symbol,.hljs-function,.hljs-title { .colorglow(rgb(171, 86, 230)); }
+  .hljs-string,.hljs-meta { .colorglow(rgb(107, 83, 207)); }
+  .hljs-comment { .colorglow(rgb(159, 178, 179)); }
+}

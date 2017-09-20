@@ -3,8 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Codewall</title>
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
+    <form id="url-form" class="input-form">
+      <label for="url">Type in the URL of a file in a Github repository:</label>
+      <input name="url" type="url" pattern="^https?://github.com/.+">
+      <button type="submit">Go</button>
+    </form>
+    <div id="loading" style="display:none">
+      <p>Loading...</p>
+    </div>
+    <div id="error" style="display:none">
+      <p>Sorry, something went wrong: <span id="error-msg"></span></p>
+      <button type="button" id="try-again">Try again</button>
+    </div>
+    <div id="style-menu">
+      <label>Color scheme:</label>
+      <select id="style-select">
+        <option value="venturis">Venturis</option>
+        <option value="weyland-yutani">Weyland-Yutani</option>
+      </select>
+    </div>
+    <div id="content" style="display:none">
+    </div>
     <script src="./bundle.js" charset="utf-8"></script>
   </body>
 </html>
