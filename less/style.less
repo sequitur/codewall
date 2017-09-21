@@ -1,26 +1,81 @@
-@import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i');
+
+body,html,input,button,select {
+  font-family: 'Space Mono', monospace;
+}
 
 body,html {
-  font-family: 'VT323', monospace;
   padding: 0;
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
+  background: black;
+  color: #ccc;
+}
+
+#url-form,#loading,#error {
+  margin: 30vh auto;
+  max-width: 20rem;
+  text-align: center;
+
+  input {
+    background: #222;
+    color: white;
+    border: 1px solid #888;
+  }
+
+  button {
+    background: #666;
+    color: white;
+    border: 1px solid #888;
+  }
 }
 
 #content {
+  position: fixed;
   margin: 0;
   padding: 0;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+  z-index: -5000;
+
+  &.hide-comments {
+    .hljs-comment {
+      display: none;
+    }
+  }
 }
 
 #style-menu {
-  width: 300px;
-  height: 100px;
   position: fixed;
+  width: 18rem;
   top: 0;
   right: 0;
+  margin: 0;
+  padding: 1rem;
+  background: rgba(0,0,0,0.5);
+
+  transition: opacity .5s ease-in-out;
+
+  .hide-note {
+    font-style: italic;
+    display: none;
+  }
+
+  &.hide {
+    opacity: 0;
+
+    &:hover {
+      opacity: 0.8;
+    }
+    .hide-note {
+      display: block;
+    }
+  }
 }
 
 .colorglow(@value) {
@@ -38,17 +93,23 @@ body,html {
   background: rgb(23, 51, 60);
   .hljs-keyword,.hljs-built_in { .colorglow(rgb(100, 183, 214)); }
   .hljs-literal,.hljs-number,.hljs-params { .colorglow(rgb(130, 232, 214)); }
-  .hljs-symbol,.hljs-function,.hljs-title { .colorglow(rgb(171, 86, 230)); }
+  .hljs-symbol,.hljs-function,.hljs-title {
+    .colorglow(rgb(171, 86, 230));
+    font-style: italic;
+  }
   .hljs-string,.hljs-meta { .colorglow(rgb(107, 83, 207)); }
   .hljs-comment { .colorglow(rgb(159, 178, 179)); }
 }
 
 #content.weyland-yutani {
-  .mildglow(#ccc);
-  background: rgb(82, 81, 68);
-  .hljs-keyword,.hljs-built_in { .colorglow(rgb(241, 205, 17)); }
-  .hljs-literal,.hljs-number,.hljs-params { .colorglow(rgb(137, 142, 166)); }
-  .hljs-symbol,.hljs-function,.hljs-title { .colorglow(rgb(171, 86, 230)); }
-  .hljs-string,.hljs-meta { .colorglow(rgb(107, 83, 207)); }
-  .hljs-comment { .colorglow(rgb(159, 178, 179)); }
+  .mildglow(#ccb);
+  background: rgb(41, 40, 29);
+  .hljs-keyword,.hljs-built_in {
+    .colorglow(rgb(241, 205, 17));
+    font-weight: bold;
+  }
+  .hljs-literal,.hljs-number,.hljs-params { .colorglow(rgb(200, 149, 50)); }
+  .hljs-symbol,.hljs-function,.hljs-title { .colorglow(rgb(226, 142, 17)); }
+  .hljs-string,.hljs-meta { .colorglow(rgb(140, 140, 140)); }
+  .hljs-comment { .colorglow(rgb(139, 132, 120)); }
 }

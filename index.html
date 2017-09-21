@@ -7,6 +7,7 @@
   </head>
   <body>
     <form id="url-form" class="input-form">
+      <h1>Codewall</h1>
       <label for="url">Type in the URL of a file in a Github repository:</label>
       <input name="url" type="url" pattern="^https?://github.com/.+">
       <button type="submit">Go</button>
@@ -20,10 +21,22 @@
     </div>
     <div id="style-menu">
       <label>Color scheme:</label>
-      <select id="style-select">
+      <select name="styleSelect">
         <option value="venturis">Venturis</option>
         <option value="weyland-yutani">Weyland-Yutani</option>
       </select>
+      <br>
+      <label>Font size:</label>
+      <input name="fontSize" type="range" min="10" max="24">
+      <br>
+      <label>Hide comments</label>
+      <input name="hideComments" type="checkbox">
+      <br>
+      <label>Hide controls</label>
+      <input name="hideOptions" type="checkbox">
+      <br>
+      <button name="reset" style="display:none">Another one</button>
+      <p class="hide-note">Hover over the corner of the screen to show controls.</p>
     </div>
     <div id="content" style="display:none">
     </div>

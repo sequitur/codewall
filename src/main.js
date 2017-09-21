@@ -14,9 +14,15 @@ function displayContent (content) {
   const highlightedContent = hl.highlightAuto(content).value
   const fixedContent = highlightedContent.replace(/\s+/g, " ");
   elem.html(fixedContent);
-  elem.attr("class", $("#style-select").val());
+  elem.attr("class", $("select[name=styleSelect]").val());
   $("#loading,#url-form,#error").hide();
   elem.show();
+  $("button[name=reset]").show();
+}
+
+function reset () {
+  $("button[name=reset]").hide();
+  $("#url-form").show();
 }
 
 /* Get file from github */
@@ -55,6 +61,30 @@ $("#url-form").on("submit", function (event) {
     .catch(displayError);
 });
 
-$("#style-select").on("change", function () {
-  $("#content").attr("class", $("#style-select").val());
+const STYLE_CLASSES = "venturis weyland-yutani";
+
+const optionActions = {
+  styleSelect (val) {
+    $("#content").removeClass(STYLE_CLASSES);
+    $("#content").addClass(val);
+  },
+
+  fontSize (val) {
+    $("#content").css("font-size", `${val}px`);
+  },
+
+  hideComments (val) {
+    $("#content").toggleClass("hide-comments", val);
+  },
+
+  hideOptions (val) {
+    $("#style-menu").toggleClass("hide", val);
+  }
+}
+
+$("#style-menu select,#style-menu input").on("change", function (event) {
+  const {name, value} = event.target;
+  return optionActions[name](value);
 });
+
+$("button[name=reset]").on("click", reset);
