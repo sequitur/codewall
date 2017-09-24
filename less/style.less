@@ -39,14 +39,30 @@ body,html {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  word-wrap: break-word;
-  word-break: break-all;
+  // word-wrap: break-word;
+  // word-break: break-all;
   z-index: -5000;
 
   &.hide-comments {
     .hljs-comment {
       display: none;
     }
+  }
+}
+
+#draw-container {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -5000;
+
+  canvas {
+    height: 100%;
+    width: 100%;
   }
 }
 

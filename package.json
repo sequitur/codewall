@@ -21,7 +21,11 @@
     "watch": "^1.0.2"
   },
   "dependencies": {
+    "dom-to-image": "^2.5.2",
     "highlight.js": "^9.12.0",
-    "jquery": "^3.2.1"
+    "html2canvas": "^0.5.0-beta4",
+    "jquery": "^3.2.1",
+    "postprocessing": "^2.3.1",
+    "three": "^0.87.1"
   }
 }
