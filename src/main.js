@@ -2,9 +2,10 @@ import $ from "jquery";
 import hl from "highlight.js";
 import html2canvas from 'html2canvas';
 import {
-  CanvasTexture, Scene, OrthographicCamera, WebGLRenderer, Mesh,
+  CanvasTexture, Scene, OrthographicCamera, WebGLRenderer, Mesh, Clock,
   PlaneGeometry, MeshLambertMaterial, HemisphereLight, PointLight, DoubleSide
   } from 'three';
+import { EffectComposer, GlitchPass, RenderPass } from 'postprocessing';
 
 let currentText;
 let displayRunning;
@@ -25,7 +26,7 @@ const planeMaterial = new MeshLambertMaterial( {
 } );
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-window.ortho = false;
+const composer = new EffectComposer(renderer);
 
 function createWebGLDisplay () {
   const frustumSize = 500;
@@ -41,10 +42,18 @@ function createWebGLDisplay () {
   scene.add(pointLight);
   cameraOrtho.position.z = 100;
   cameraOrtho.lookAt(scene.position);
+
+  composer.addPass(new RenderPass(scene, cameraOrtho));
+  const glitchPass = new GlitchPass();
+  glitchPass.renderToScreen = true;
+  composer.addPass(glitchPass);
+  const clock = new Clock();
+
   function animate () {
     requestAnimationFrame(animate);
-    renderer.render(scene, cameraOrtho);
+    composer.render(clock.getDelta());
   }
+
   animate();
   displayRunning = true;
 }
