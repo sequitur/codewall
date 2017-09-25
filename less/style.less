@@ -36,9 +36,9 @@ body,html {
   padding: 0;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  // overflow: hidden;
   // word-wrap: break-word;
   // word-break: break-all;
   z-index: -5000;
@@ -104,7 +104,10 @@ body,html {
   text-shadow: 0 0 5px lighten(@value, 10%);
 }
 
+/* Color schemes */
+
 #content.venturis {
+  // Blues, cyans, and purples
   .mildglow(#bbb);
   background: rgb(23, 51, 60);
   .hljs-keyword,.hljs-built_in { .colorglow(rgb(100, 183, 214)); }
@@ -118,6 +121,7 @@ body,html {
 }
 
 #content.weyland-yutani {
+  // Browns and yellows
   .mildglow(#ccb);
   background: rgb(41, 40, 29);
   .hljs-keyword,.hljs-built_in {
@@ -128,4 +132,52 @@ body,html {
   .hljs-symbol,.hljs-function,.hljs-title { .colorglow(rgb(226, 142, 17)); }
   .hljs-string,.hljs-meta { .colorglow(rgb(140, 140, 140)); }
   .hljs-comment { .colorglow(rgb(139, 132, 120)); }
+}
+
+#content.delos {
+  // Cold blues and greys
+  .mildglow(#aaaaaa);
+  background: rgb(40, 40, 40);
+  .hljs-keyword,.hljs-built_in {
+    .colorglow(rgb(51, 60, 124));
+    font-weight: bold;
+  }
+  .hljs-literal,.hljs-number,.hljs-params { .colorglow(rgb(151, 153, 173)); }
+  .hljs-symbol,.hljs-function,.hljs-title {
+    .colorglow(rgb(54, 80, 176));
+    font-style: italic;
+  }
+  .hljs-string,.hljs-meta { .colorglow(rgb(139, 139, 139)); }
+  .hljs-comment { .colorglow(rgb(74, 74, 74)); }
+}
+
+#content.cyberdyne {
+  // Reds and blacks
+  .mildglow(#acacac);
+  background: #141414;
+  .hljs-keyword,.hljs-built_in {
+    .colorglow(#7e0d0d);
+    font-weight: bold;
+  }
+  .hljs-literal,.hljs-number,.hljs-params { .colorglow(#ba1914); }
+  .hljs-symbol,.hljs-function,.hljs-title { .colorglow(#f10808); }
+  .hljs-string,.hljs-meta { .colorglow(#dddddd); }
+  .hljs-comment { .colorglow(#372b2b); }
+}
+
+#content.tyrell {
+  // Brilliant oranges and brass colors
+  .mildglow(#afac9b);
+  background: #2a322a;
+  .hljs-keyword,.hljs-built_in {
+    .colorglow(#cf9500);
+    font-weight: bold;
+  }
+  .hljs-literal,.hljs-number,.hljs-params { .colorglow(#f1bd04); }
+  .hljs-symbol,.hljs-function,.hljs-title {
+    font-style: italic;
+    .colorglow(#ff4500);
+  }
+  .hljs-string,.hljs-meta { .colorglow(#698270); }
+  .hljs-comment { .colorglow(#476046); }
 }
