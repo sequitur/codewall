@@ -1,15 +1,25 @@
-import $ from "jquery";
-import hl from "highlight.js";
-import html2canvas from 'html2canvas';
+/* Codewall main source file */
+/* Turns code into A E S T H E T I C */
+/* Copyright (C) 2017 Bruno Dias */
+
+/* Imports... */
+import $ from "jquery"; // For general DOM manipulation
+import hl from "highlight.js"; // For syntax highlighting
+import html2canvas from 'html2canvas'; // To use DOM elements as textures
+
+// For WebGL wrangling
 import {
   CanvasTexture, Scene, OrthographicCamera, WebGLRenderer, Mesh, Clock,
   PlaneGeometry, MeshLambertMaterial, HemisphereLight, PointLight, DoubleSide
 } from 'three';
+
+// For postprocessing effects
 import {
   EffectComposer, GlitchPass, GlitchMode, RenderPass, BloomPass, FilmPass,
   KernelSize, PixelationPass, DotScreenPass
 } from 'postprocessing';
 
+// Ugly global flags
 let currentText;
 let displayRunning;
 let hideComments;
@@ -30,8 +40,8 @@ const frustumSize = 500;
 const aspect = window.innerWidth / window.innerHeight;
 const scene = new Scene();
 const cameraOrtho = new OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 10, 2000 );
-const geometry = new PlaneGeometry( frustumSize * aspect, frustumSize, 16 );
-const plane = new Mesh( geometry, planeMaterial );
+let geometry = new PlaneGeometry( frustumSize * aspect, frustumSize, 16 );
+let plane = new Mesh( geometry, planeMaterial );
 scene.add( plane );
 scene.add(new HemisphereLight(0xffffff, 0x444444));
 const pointLight = new PointLight(0xffffff, 2, 500, 2);
@@ -195,6 +205,7 @@ function displayContent (content) {
 
 function reset () {
   $("button[name=reset]").hide();
+  $("button[name=redraw]").show();
   $("#url-form").show();
 }
 
@@ -276,6 +287,7 @@ $("#style-menu select,#style-menu input").on("change", function (event) {
 });
 
 function redraw () {
+  $("#url-form").hide();
   $("#loading").show();
   $("button[name=redraw]").hide();
   // Hack to stop the UI from blocking before "loading" text shows up.
@@ -286,3 +298,19 @@ function redraw () {
 
 $("button[name=reset]").on("click", reset);
 $("button[name=redraw]").on("click", redraw);
+
+window.onresize = function () {
+  const {innerWidth: width, innerHeight: height} = window;
+  const aspect = width / height;
+  cameraOrtho.left   = - frustumSize * aspect / 2;
+  cameraOrtho.right  =   frustumSize * aspect / 2;
+  cameraOrtho.top    =   frustumSize / 2;
+  cameraOrtho.bottom = - frustumSize / 2;
+  cameraOrtho.updateProjectionMatrix();
+  renderer.setSize(width, height);
+  scene.remove(plane);
+  geometry = new PlaneGeometry( frustumSize * aspect, frustumSize, 16 );
+  plane = new Mesh( geometry, planeMaterial );
+  scene.add(plane);
+  if (displayRunning) $("button[name=redraw]").show();
+}
