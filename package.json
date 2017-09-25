@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "A web toy that turns source code into a e s t h e t i c",
   "main": "index.js",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/sequitur/codewall.git"
+  },
   "scripts": {
     "rollup": "rollup -c",
     "rollup:watch": "watch \"npm run rollup\" src",
