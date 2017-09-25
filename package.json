@@ -8,7 +8,8 @@
     "rollup:watch": "watch \"npm run rollup\" src",
     "less": "lessc less/style.less style.css",
     "less:watch": "watch \"npm run less\" less",
-    "start": "concurrently \"npm run rollup:watch\" \"npm run less:watch\" \"live-server --watch=index.html,style.css,bundle.js ./\""
+    "start": "concurrently \"npm run rollup:watch\" \"npm run less:watch\" \"live-server --watch=index.html,style.css,bundle.js ./\"",
+    "build": "concurrently \"npm run rollup\" \"npm run less\""
   },
   "author": "Bruno Dias",
   "license": "MIT",
