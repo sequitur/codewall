@@ -21,8 +21,13 @@ import {
 
 // Ugly global vars
 let currentText;
+let currentURL;
 let displayRunning;
 let hideComments;
+
+// Useful constants
+
+const QUERY_OPTIONS = ["styleSelect", "aestheticSelect", "fontSize", "hideComments"];
 
 /* Create the Scene */
 const canvas = document.getElementById('draw-canvas');
@@ -209,6 +214,16 @@ function displayContent (content) {
   html2canvas(elem[0]).then(displayOnCanvas);
 }
 
+function generateQueryURL () {
+  const queryString = new URLSearchParams();
+  queryString.append("url", currentURL);
+  QUERY_OPTIONS.forEach(name => {
+    queryString.append(name, $(`[name=${name}]`).val());
+  });
+  const {origin, pathname} = window.location;
+  return `${origin}${pathname}?${queryString.toString()}`;
+}
+
 // html2canvas returns a promise which returns a canvas that contains
 // an image of our code, which we turned into a DOM tree of styled spans
 // with hl.js. Then we want to use that canvas as a texture for the 3D plane
@@ -222,6 +237,7 @@ function displayOnCanvas (texCanvas) {
   else createEffectComposer(composer, scene, cameraOrtho);
   $("#loading,#url-form,#error").hide();
   $("button[name=reset]").show();
+  $("#permalink").html(`<a href="${generateQueryURL()}">Permalink to this codewall</a>`)
 }
 
 /* UI functions relating to various buttons and widgets */
@@ -268,12 +284,11 @@ $('#try-again').on('click', function tryAgain () {
   $('#url-form').show();
 });
 
-// Get an URL and read it.
-$("#url-form").on("submit", function tryURL (event) {
-  event.preventDefault();
+function tryURL (url) {
   $("#url-form").hide();
   $("#loading").show();
-  getUrl($("#url-form input").val())
+  currentURL = url;
+  getUrl(url)
     .then(blob => {
       // We use pattern matching here because some browsers (Firefox) include
       // the encoding in the blob type, while others do not.
@@ -290,6 +305,12 @@ $("#url-form").on("submit", function tryURL (event) {
       reader.readAsText(blob);
     })
     .catch(displayError);
+}
+
+// Get an URL and read it.
+$("#url-form").on("submit", (event) => {
+  event.preventDefault();
+  tryURL($("#url-form input").val());
 });
 
 const STYLE_CLASSES = "venturis weyland-yutani delos cyberdyne tyrell";
@@ -362,4 +383,13 @@ window.onresize = function () {
   plane = new Mesh( geometry, planeMaterial );
   scene.add(plane);
   if (displayRunning) $("button[name=redraw]").show();
+}
+
+if (location.search !== "") {
+  const query = new URLSearchParams(location.search);
+  console.log(query);
+  QUERY_OPTIONS.forEach(name => {
+    $(`[name=${name}]`).val(query.get(name));
+  });
+  tryURL(query.get('url'));
 }

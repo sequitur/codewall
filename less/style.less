@@ -12,10 +12,35 @@ body,html {
   color: #ccc;
 }
 
+h1 {
+  color: #E22;
+  font-weight: normal;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+a {
+  color: #eee;
+  text-decoration: none;
+  font-style: italic;
+  border-bottom: 1px solid white;
+
+  &:visited {
+    color: #bbb;
+  }
+
+  &:hover {
+    color: #E22;
+  }
+}
+
 #url-form,#loading,#error {
   margin: 30vh auto;
   max-width: 20rem;
   text-align: center;
+  padding-bottom: 1rem;
 
   input {
     background: #222;
