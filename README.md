@@ -12,6 +12,8 @@ run build` will build it.
 
 ## Acknowledgements
 
+Codewall uses JQuery (for general DOM wrangling), Highlight.js for code highlighting, html2canvas to generate textures, THREE.js for WebGL handling, and Postprocessing for, uh, postprocessing effects.
+
 Originally built as a [Patreon] project for September, 2017. Special thanks:
 
 * Doug Orleans
